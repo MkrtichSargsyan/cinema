@@ -1,0 +1,2 @@
+export const FETCH_FILMS = 'FETCH_FILMS';
+export const FILM_SELECTED = 'FILM_SELECTED';

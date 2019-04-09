@@ -1,0 +1,36 @@
+.Modal {
+    position: fixed;
+    z-index: 1102;
+    background-color: #123456;
+    color: white;
+    width: 70%;
+    border:1px solid #ccc;
+    box-shadow: 2px 2px 2px black;
+    padding: 16px;
+    left: 15%;
+    top: 15%;
+    box-sizing:  border-box;
+    animation-name: modalFade;
+    animation-duration: .9s;
+    border-radius: 10px;
+}
+.ui.form .field>label {
+    color: white !important;
+}
+.ui.primary.button {
+    background-color: #3f51b5 !important;
+}
+
+@keyframes modalFade {
+    from {transform: translateY(-50%);opacity: 0;}
+    to {transform: translateY(0);opacity: 1;}
+}
+
+@media (min-width: 600px) {
+    .Modal {
+        width: 500px;
+        left: calc(50% - 250px);
+    }
+}
+
+
