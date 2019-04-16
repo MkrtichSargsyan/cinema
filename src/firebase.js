@@ -19,17 +19,6 @@ const firedb = firebase.database();
 const auth = firebase.auth();
 
 
-// firedb.ref('users').on('value', (snapshot) => {
-//     const users = [];
-//     snapshot.forEach((child) => {
-//         users.push({
-//             uid: child.key,
-//             ...child.val(),
-//         })
-//     });
-//     console.log(users);
-// });
-
 
 export {
     firedb,

@@ -1,0 +1,55 @@
+.hall {
+    width: 680px;
+    height: 500px;
+    margin: 10px auto;
+    position: relative;
+}
+
+.bg_image {
+    position: absolute;
+    top: -88px;
+    height: 260px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    transform: rotateX(-70deg);
+    background-image: url("https://image.shutterstock.com/image-vector/old-cinema-background-vector-illustration-260nw-770497021.jpg");
+    clip-path: polygon(0 2%, 100% 0, 95% 100%, 5% 100%);
+}
+
+.places {
+    position: absolute;
+    top: 150px;
+    width: 100%;
+    height: 330px;
+    clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+    background-color: #0c061d;
+    padding: 30px;
+}
+
+.row {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    margin: 10px;
+}
+
+.chair {
+    background-color: #1b659a;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+.chair:hover {
+    width: 40px;
+    height: 40px;
+    background-color: #2b779a;
+}

@@ -42,4 +42,9 @@
     height: 35px;
     text-align: center;
     text-transform: uppercase;
+    cursor: pointer;
+}
+
+.film_detail .info button:hover{
+    background-color: #1c3d56;
 }

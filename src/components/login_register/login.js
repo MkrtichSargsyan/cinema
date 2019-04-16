@@ -20,7 +20,7 @@ class Login extends React.Component {
             email,
             password
         ).then((a) => {
-            console.log('uraaa');
+            console.log(a);
         }).catch(error => console.log(error));
 
         this.props.clicked();

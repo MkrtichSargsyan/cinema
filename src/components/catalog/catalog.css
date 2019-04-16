@@ -34,7 +34,7 @@
     background-color: #0c061d;
     position: absolute;
     visibility: hidden;
-    transition: transform .4s linear;
+    transition: transform .4s ;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -49,7 +49,7 @@
     transform: scale(1.1);
 }
 
-.show_info a {
+.show_info .link{
     text-decoration: none;
     border: 1px solid black;
     padding: 5px;
@@ -59,4 +59,8 @@
     border-radius: 4px;
     width: 100px;
     text-align: center;
+    cursor: pointer;
+}
+.link:hover{
+    background-color: #1b659a;
 }

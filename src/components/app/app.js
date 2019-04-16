@@ -5,6 +5,8 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 
 import Catalog from '../catalog';
 import FilmDetails from "../film_details/filmDetails";
+import Hall from "../hall/hall";
+import NotFound from "../notFound/notFound";
 
 
 const App = (props) => {
@@ -13,8 +15,13 @@ const App = (props) => {
         <MainLayout user={props.user}>
             <Switch>
                 <Route exact path={'/catalog'} render={props => <Catalog {...props} user={currentUser}/>}/>
-                <Route exact path={'/catalog/:id'} component={FilmDetails}/>
-                <Redirect from={'/'} to={'/catalog'}/>
+                <Route exact path={'/catalog/:id'} render={props => <FilmDetails {...props} user={currentUser}/>}/>
+                <Route exact path={'/catalog/:id/:hall'}
+                       render={props => currentUser ? <Hall {...props} user={currentUser}/> :
+                           <Redirect to={'/catalog'}/>}/>
+                <Route path={'/not-found'} component={NotFound}/>
+                <Redirect exact from={'/'} to={'/catalog'}/>
+                <Redirect to={'/not-found'}/>
             </Switch>
         </MainLayout>
     );

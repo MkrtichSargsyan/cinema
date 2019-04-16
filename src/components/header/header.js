@@ -7,23 +7,24 @@ import Register from "../login_register/register";
 import Modal from "../modal/modal";
 import Login from "../login_register/login";
 import {auth} from "../../firebase";
+import {connect} from "react-redux";
+
+import {openModal} from "../../actions";
 
 class Header extends Component {
 
 
     state = {
-        showModal: false,
         modalContent: null,
     };
 
     openModal = () => {
-        this.setState({
-            showModal: true,
-        })
+        return this.props.openModal(true);
     };
 
     closeModal = () => {
-        this.setState({showModal: false})
+
+        return this.props.openModal(false);
     };
 
 
@@ -43,13 +44,13 @@ class Header extends Component {
 
 
     render() {
-        console.log(this.props.user);
         return (
             !this.props.user ?
                 <>
-                    {this.state.showModal ?
+                    {this.props.showModal ?
                         <Modal clicked={this.closeModal}>
-                            {this.state.modalContent}
+                            {this.state.modalContent ?
+                                this.state.modalContent : <Login canceled={this.closeModal} clicked={this.closeModal}/>}
                         </Modal> : null}
                     <div style={{backgroundColor: '#123456'}}>
                         <div className={'wrapper'}>
@@ -96,4 +97,10 @@ class Header extends Component {
     }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+    return {
+        showModal: state.modalReducer.showModal,
+    }
+};
+
+export default connect(mapStateToProps, {openModal})(Header);

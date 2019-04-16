@@ -2,40 +2,63 @@ import React from 'react';
 import './filmDetails.css';
 import {connect} from "react-redux";
 
+import {selectFilm} from "../../actions";
+import {openModal} from '../../actions';
+
 const IMAGES_URL = `http://image.tmdb.org/t/p/w500`;
 
 
-const FilmDetails = (props) => {
-    const data = props.selectedFilm;
-    return (
-        data ?
-            <div style={{backgroundColor: '#1b1b1b', minHeight: '700px'}}>
+class FilmDetails extends React.Component {
+
+
+    async componentDidMount() {
+        await this.props.selectFilm(this.props.location.state.id);
+    }
+
+    reserveFilm = () => {
+        let path = this.props.history.location.pathname;
+        return this.props.user ? this.props.history.push(`${path}/hall`) : this.props.openModal(true);
+    };
+
+    render() {
+        const {selectedFilm, loading} = this.props;
+
+        return (
+            <div style={{backgroundColor: '#1b1b1b', height: 'calc(100vh - 80px)'}}>
                 <div className={'wrapper'}>
                     <div className={'film_detail'}>
-                        <div>
-                            <img src={`${IMAGES_URL}${data.poster_path}`} alt="img"/>
-                        </div>
-                        <div className={'info'}>
-                            <div><span>original_title:</span>{data.original_title}</div>
-                            <div><span>ID:</span> {data.id}</div>
-                            <div><span>Adult:</span> {data.adult.toString()}</div>
-                            <div><span>popularity:</span> {data.popularity}</div>
-                            <div><span>release_date:</span> {data.release_date}</div>
-                            <div><span>vote_average:</span> {data.vote_average}</div>
-                            <div><span>vote_count:</span> {data.vote_count}</div>
-                            <div><span>overview:</span> {data.overview}</div>
-                            <button onClick={() => console.log('sdfsd')}>reserve</button>
-                        </div>
+                        {selectedFilm ?
+                            <>
+                                <div>
+                                    <img src={`${IMAGES_URL}${selectedFilm.poster_path}`} alt="img"/>
+                                </div>
+                                <div className={'info'}>
+                                    <div><span>original_title:</span>{selectedFilm.original_title}</div>
+                                    <div><span>ID:</span> {selectedFilm.id}</div>
+                                    <div><span>Adult:</span> {selectedFilm.adult.toString()}</div>
+                                    <div><span>popularity:</span> {selectedFilm.popularity}</div>
+                                    <div><span>release_date:</span> {selectedFilm.release_date}</div>
+                                    <div><span>vote_average:</span> {selectedFilm.vote_average}</div>
+                                    <div><span>vote_count:</span> {selectedFilm.vote_count}</div>
+                                    <div><span>overview:</span> {selectedFilm.overview}</div>
+                                    <button onClick={() => this.reserveFilm()}>reserve</button>
+                                </div>
+                            </>
+                            : loading ? 'loading...' : null
+                        }
+
                     </div>
                 </div>
-            </div> : ''
-    );
-};
+            </div>
+        );
+    }
+}
 
 const mapStateToProps = state => {
     return {
-        selectedFilm: state.films
+        selectedFilm: state.filmReducer.selectedFilm,
+        loading: state.filmReducer.loading,
     }
 };
 
-export default connect(mapStateToProps)(FilmDetails);
+export default connect(mapStateToProps, {selectFilm,openModal})(FilmDetails);
