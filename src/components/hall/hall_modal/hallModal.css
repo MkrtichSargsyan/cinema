@@ -1,0 +1,51 @@
+.reserve_modal {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    background-color: #456454;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: bold;
+}
+.reserve_modal .title{
+    text-align: center;
+    margin: 20px auto;
+}
+
+.reserve_modal span{
+    margin-left: 10px;
+}
+
+.buttons{
+    position: absolute;
+    display: flex;
+    top: 70%;
+    left:60%;
+}
+
+.button{
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 10px 15px;
+}
+
+.button:hover{
+    cursor: pointer;
+}
+
+.submit{
+    background-color: green;
+}
+.submit:hover{
+    background-color: forestgreen;
+}
+
+.cancel{
+    background-color: red;
+}
+
+.cancel:hover{
+    background-color: #951d22;
+}

@@ -7,6 +7,7 @@ import Catalog from '../catalog';
 import FilmDetails from "../film_details/filmDetails";
 import Hall from "../hall/hall";
 import NotFound from "../notFound/notFound";
+import CreateSeans from "../createSeans/createSeans";
 
 
 const App = (props) => {
@@ -14,6 +15,8 @@ const App = (props) => {
     return (
         <MainLayout user={props.user}>
             <Switch>
+                <Route exact path={'/admin'} component={CreateSeans}/>
+
                 <Route exact path={'/catalog'} render={props => <Catalog {...props} user={currentUser}/>}/>
                 <Route exact path={'/catalog/:id'} render={props => <FilmDetails {...props} user={currentUser}/>}/>
                 <Route exact path={'/catalog/:id/:hall'}

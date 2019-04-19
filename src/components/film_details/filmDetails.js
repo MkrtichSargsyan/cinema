@@ -16,12 +16,25 @@ class FilmDetails extends React.Component {
     }
 
     reserveFilm = () => {
+
+        const {selectedFilm} = this.props;
+
         let path = this.props.history.location.pathname;
-        return this.props.user ? this.props.history.push(`${path}/hall`) : this.props.openModal(true);
+        return this.props.user
+            ?
+            this.props.history.push({
+                pathname: `${path}/hall`,
+                state: {title: selectedFilm.original_title}
+            })
+            :
+            this.props.openModal(true);
+
     };
 
     render() {
         const {selectedFilm, loading} = this.props;
+
+        console.log(selectedFilm);
 
         return (
             <div style={{backgroundColor: '#1b1b1b', height: 'calc(100vh - 80px)'}}>
@@ -61,4 +74,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, {selectFilm,openModal})(FilmDetails);
+export default connect(mapStateToProps, {selectFilm, openModal})(FilmDetails);

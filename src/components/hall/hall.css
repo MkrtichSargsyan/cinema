@@ -1,3 +1,14 @@
+
+.hall_wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hall_info {
+    width: 200px;
+    color: white;
+}
+
 .hall {
     width: 680px;
     height: 500px;
@@ -7,13 +18,16 @@
 
 .bg_image {
     position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("https://image.shutterstock.com/image-vector/old-cinema-background-vector-illustration-260nw-770497021.jpg");
+}
+
+.top {
     top: -88px;
     height: 260px;
     width: 100%;
-    background-repeat: no-repeat;
-    background-size: 100%;
     transform: rotateX(-70deg);
-    background-image: url("https://image.shutterstock.com/image-vector/old-cinema-background-vector-illustration-260nw-770497021.jpg");
     clip-path: polygon(0 2%, 100% 0, 95% 100%, 5% 100%);
 }
 
@@ -28,9 +42,10 @@
 }
 
 .row {
-    width: 100%;
+    width: 620px;
     height: 40px;
     display: flex;
+    flex-wrap: wrap;
     margin: 10px;
 }
 
@@ -48,8 +63,43 @@
     font-weight: bold;
 }
 
+.reservedChair {
+    position: relative;
+    background-color: red;
+    pointer-events: none;
+}
+
+.reservedChair:after {
+    position: absolute;
+    content: "\d7";
+    font-size: 60px;
+    color: black;
+    top: 8px;
+    font-weight: bold;
+}
+
 .chair:hover {
     width: 40px;
     height: 40px;
     background-color: #2b779a;
+}
+
+.margin20 {
+    margin-right: 20px;
+    color: #2828ce;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

@@ -23,7 +23,6 @@ class Header extends Component {
     };
 
     closeModal = () => {
-
         return this.props.openModal(false);
     };
 

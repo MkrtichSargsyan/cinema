@@ -3,6 +3,7 @@ import './catalog.css';
 
 import {connect} from "react-redux";
 import {fetchFilms} from '../../actions/index';
+import {firedb} from "../../firebase";
 
 const API_KEY = '8f41c127dae95fb58daf9550cee43f28';
 const PAGE_NUMBER = 1;
@@ -13,11 +14,110 @@ const IMAGES_URL = `http://image.tmdb.org/t/p/w500`;
 class Catalog extends React.Component {
 
 
+    state = {
+        films: ''
+    };
+
+
+    setHalls = () => {
+        firedb.ref('halls').once('value', function (snapshot) {
+            if (snapshot.exists()) {
+                console.log('exist');
+            } else {
+                firedb.ref('halls').set({
+                    hall1: {
+                        places: {
+                            0: false,
+                            1: false,
+                            2: false,
+                            3: false,
+                            4: false,
+                            5: false,
+                            6: false,
+                            7: false,
+                            8: false,
+                            9: false,
+                        },
+                        seanses: ' ',
+                    },
+                    hall2: {
+                        places: {
+                            0: false,
+                            1: false,
+                            2: false,
+                            3: false,
+                            4: false,
+                        },
+                        seanses: ' ',
+                    },
+                    hall3: {
+                        places: {
+                            0: false,
+                            1: false,
+                            2: false,
+                            3: false,
+                            4: false,
+                            5: false,
+                            6: false,
+                            7: false,
+                            8: false,
+                            9: false,
+                            10: false,
+                            11: false,
+                            12: false,
+                            13: false,
+                            14: false,
+                        },
+                        seanses: ' ',
+                    },
+                    hall4: {
+                        places: {
+                            0: false,
+                            1: false,
+                            2: false,
+                            3: false,
+                            4: false,
+                            5: false,
+                            6: false,
+                            7: false,
+                            8: false,
+                            9: false,
+                        },
+                        seanses: ' ',
+                    },
+
+                });
+            }
+        });
+    };
+
+
     async componentDidMount() {
         await this.props.fetchFilms(URL);
+        const films = this.props.films;
+
+        this.setHalls();
+
+        let dbfilms = '';
+
+        await firedb.ref('films').once('value', function (snapshot) {
+            if (snapshot.exists()) {
+                dbfilms = snapshot.val();
+                console.log('exist');
+            } else {
+                firedb.ref('films').set(
+                    {...films}
+                );
+            }
+        });
+
+        this.setState({
+            films: dbfilms
+        })
+
     }
 
-    selectFilm = async (film) => {
+    selectFilm = film => {
 
         this.props.history.push({
             pathname: `/catalog/${film.title.split(' ').join('_')}`,
@@ -26,8 +126,8 @@ class Catalog extends React.Component {
     };
 
     renderFilms = () => {
-        return (
-            this.props.films.map(film => {
+
+        return (this.state.films.map(film => {
                     return (
                         <div key={film.id} className={'film_box'}>
                             <img src={`${IMAGES_URL}${film.poster_path}`} alt="img"/>
@@ -46,17 +146,18 @@ class Catalog extends React.Component {
 
 
     render = () => {
-        const {error, loading, films} = this.props;
+
+        const {error, loading} = this.props;
 
         return (
-            <div style={{backgroundColor: '#1b1b1b',minHeight:'calc(100vh - 80px)'}}>
+            <div style={{backgroundColor: '#1b1b1b', minHeight: 'calc(100vh - 80px)'}}>
                 <div className={'wrapper'}>
                     <div className={'catalog'}>
                         {error ? <div style={{color: 'white'}}>{error.toString()}</div> : null}
                         {loading ?
                             <span style={{color: 'white'}}>Loading...</span>
                             :
-                            films ? this.renderFilms() : null}
+                            this.state.films ? this.renderFilms() : <div style={{color: 'white'}}>Loading...</div>}
                     </div>
                 </div>
             </div>
