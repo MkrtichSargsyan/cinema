@@ -16,7 +16,6 @@ const App = (props) => {
         <MainLayout user={props.user}>
             <Switch>
                 <Route exact path={'/admin'} component={CreateSeans}/>
-
                 <Route exact path={'/catalog'} render={props => <Catalog {...props} user={currentUser}/>}/>
                 <Route exact path={'/catalog/:id'} render={props => <FilmDetails {...props} user={currentUser}/>}/>
                 <Route exact path={'/catalog/:id/:hall'}
